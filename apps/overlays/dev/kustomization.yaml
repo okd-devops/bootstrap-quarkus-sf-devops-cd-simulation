@@ -6,3 +6,6 @@ bases:
 
 resources:
   - namespace.yaml
+
+patchesStrategicMerge:
+  - patch-cm.yaml
