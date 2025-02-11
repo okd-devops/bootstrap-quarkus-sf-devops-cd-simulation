@@ -78,33 +78,6 @@ items:
     name: quarkus-sf-source-application-properties
 - apiVersion: v1
   data:
-    QUARKUS_PROFILE: dev
-  kind: ConfigMap
-  metadata:
-    name: quarkus-profile
-- apiVersion: v1
-  data:
-    QUARKUS_HTTP_PORT: '8080'
-  kind: ConfigMap
-  metadata:
-    name: quarkus-http-port
-- apiVersion: v1
-  data:
-    JAVA_APP_DIR: "/tmp/src/target"
-  kind: ConfigMap
-  metadata:
-    name: java-app-dir
-- apiVersion: v1
-  data:
-    prometheus-config.yml: |-
-      startDelaySecs: 5
-      ssl: false
-      blacklistObjectNames: ["java.lang:*"]
-  kind: ConfigMap
-  metadata:
-    name: prometheus-conf
-- apiVersion: v1
-  data:
     JAVA_APP_JAR: "/deployments/quarkus-run.jar"
   kind: ConfigMap
   metadata:
@@ -200,33 +173,6 @@ items:
     name: quarkus-sf-raw-snowflake-properties
 - apiVersion: v1
   data:
-    QUARKUS_PROFILE: dev
-  kind: ConfigMap
-  metadata:
-    name: quarkus-profile
-- apiVersion: v1
-  data:
-    QUARKUS_HTTP_PORT: '8080'
-  kind: ConfigMap
-  metadata:
-    name: quarkus-http-port
-- apiVersion: v1
-  data:
-    JAVA_APP_DIR: "/tmp/src/target"
-  kind: ConfigMap
-  metadata:
-    name: java-app-dir
-- apiVersion: v1
-  data:
-    prometheus-config.yml: |-
-      startDelaySecs: 5
-      ssl: false
-      blacklistObjectNames: ["java.lang:*"]
-  kind: ConfigMap
-  metadata:
-    name: prometheus-conf
-- apiVersion: v1
-  data:
     JAVA_APP_JAR: "/deployments/quarkus-run.jar"
   kind: ConfigMap
   metadata:
@@ -319,33 +265,6 @@ items:
   kind: ConfigMap
   metadata:
     name: quarkus-sf-normalize-snowflake-properties
-- apiVersion: v1
-  data:
-    QUARKUS_PROFILE: dev
-  kind: ConfigMap
-  metadata:
-    name: quarkus-profile
-- apiVersion: v1
-  data:
-    QUARKUS_HTTP_PORT: '8080'
-  kind: ConfigMap
-  metadata:
-    name: quarkus-http-port
-- apiVersion: v1
-  data:
-    JAVA_APP_DIR: "/tmp/src/target"
-  kind: ConfigMap
-  metadata:
-    name: java-app-dir
-- apiVersion: v1
-  data:
-    prometheus-config.yml: |-
-      startDelaySecs: 5
-      ssl: false
-      blacklistObjectNames: ["java.lang:*"]
-  kind: ConfigMap
-  metadata:
-    name: prometheus-conf
 - apiVersion: v1
   data:
     JAVA_APP_JAR: "/deployments/quarkus-run.jar"
