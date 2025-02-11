@@ -1,0 +1,4 @@
+apiVersion: v1
+name: bootstrap-{{ .Values.metadata.name }}
+description: Helm and Kustomize template for K8S Openshift
+version: 0.1.0

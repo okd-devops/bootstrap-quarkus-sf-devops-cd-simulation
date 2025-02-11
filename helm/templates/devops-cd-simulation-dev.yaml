@@ -1,0 +1,31 @@
+{
+  "apiVersion": "argoproj.io/v1alpha1",
+  "kind": "Application",
+  "metadata": {
+    "name": "{{ .Values.metadata.name }}-dev",
+    "namespace": "{{ .Values.metadata.namespace }}",
+    "finalizers": [
+      "resources-finalizer.argocd.argoproj.io"
+    ],
+    "annotations": {
+      "notifications.argoproj.io/subscribe.on-sync-succeeded.slack": "#devops-argocd-dev"
+    }
+  },
+  "spec": {
+    "project": "{{ .Values.spec.projectDev }}",
+    "source": {
+      "path": "{{ .Values.spec.source.pathDev }}",
+      "repoURL": "{{ .Values.spec.source.repoDevURL }}{{ .Values.spec.source.repoGit }}",
+      "targetRevision": "{{ .Values.spec.source.targetRevision }}"
+    },
+    "destination": {
+      "namespace": "{{ .Values.metadata.name }}-dev",
+      "server": "{{ .Values.spec.destination.server }}"
+    },
+    "syncPolicy": {
+      "automated": {
+        "selfHeal": true
+      }
+    }
+  }
+}

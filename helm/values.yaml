@@ -1,0 +1,31 @@
+# Default values for helm-book.
+# Declare variables to be passed into your templates.
+# .Values.metadata.name -- Metadata name and namespace of resource object on K8S
+# .Values.metadata.namespace -- Namespace where argocd located in K8S
+# .Values.spec.project -- Project setup to enable only resource object deployed what was enabled in Environment; IE dev, stg, prod
+# .Values.spec.destination.server -- K8S Service/IP
+# Others self explanatory
+# -----------------
+# Change only .Values.metadata.name, .Values.spec.source.repoGit
+# -----------------
+
+metadata:
+  name: quarkus-sf-devops-cd-simulation
+  namespace: argocd
+  
+spec:
+  projectDev: devops-dev
+  projectStg: devops-stg
+  projectProd: devops-prod
+  source:
+    pathDev: apps/overlays/dev
+    pathStg: apps/overlays/stg
+    pathProd: apps/overlays/prod
+    repoDevURL: "https://github.com/"
+    repoStgURL: "https://github.com/"
+    repoProdURL: "https://github.com/"
+    repoSvcURL: "https://gogs.cicd.svc:3000/"
+    repoGit: "okd-devops/bootstrap-quarkus-sf-devops-cd-simulation.git"
+    targetRevision: master
+  destination:
+    server: "https://kubernetes.default.svc"

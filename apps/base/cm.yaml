@@ -1,0 +1,446 @@
+apiVersion: v1
+items:
+- apiVersion: v1
+  data:
+    QUARKUS_PROFILE: dev
+  kind: ConfigMap
+  metadata:
+    name: quarkus-profile
+- apiVersion: v1
+  data:
+    QUARKUS_HTTP_PORT: '8080'
+  kind: ConfigMap
+  metadata:
+    name: quarkus-http-port
+- apiVersion: v1
+  data:
+    JAVA_APP_DIR: "/tmp/src/target"
+  kind: ConfigMap
+  metadata:
+    name: java-app-dir
+- apiVersion: v1
+  data:
+    prometheus-config.yml: |-
+      startDelaySecs: 5
+      ssl: false
+      blacklistObjectNames: ["java.lang:*"]
+  kind: ConfigMap
+  metadata:
+    name: prometheus-conf
+- apiVersion: v1
+  data:
+    JAVA_APP_JAR: "/deployments/quarkus-run.jar"
+  kind: ConfigMap
+  metadata:
+    name: quarkus-sf-source-jar
+- apiVersion: v1
+  data:
+    application.properties: |-
+      %local.kafka.bootstrap.servers=localhost:9098
+      %dev.kafka.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %stg.kafka.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %prod.kafka.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      
+      %local.quarkus.http.port=8080
+      %dev.quarkus.http.port=8080
+      %stg.quarkus.http.port=8080
+      %prod.quarkus.http.port=8080
+      quarkus.log.level=INFO
+      
+      mp.messaging.outgoing.java_generator_kafka_to_raw.topic=quarkus-pubsub-raw
+      #mp.messaging.outgoing.java_generator_kafka_to_raw.key.serializer=org.apache.kafka.common.serialization.StringSerializer
+      #mp.messaging.outgoing.java_generator_kafka_to_raw.value.serializer=org.apache.kafka.common.serialization.StringSerializer
+      %local.mp.messaging.outgoing.java_generator_kafka_to_raw.bootstrap.servers=localhost:9098
+      %dev.mp.messaging.outgoing.java_generator_kafka_to_raw.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %stg.mp.messaging.outgoing.java_generator_kafka_to_raw.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %prod.mp.messaging.outgoing.java_generator_kafka_to_raw.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      
+      %local.stream.msg.in.mil=5000
+      %dev.stream.msg.in.mil=5000
+      %stg.stream.msg.in.mil=5000
+      %prod.stream.msg.in.mil=1
+      
+      quarkus.container-image.build=true
+      #quarkus.native.reuse-existing=true
+      #quarkus.container-image.group=modernizedmicroserviceacr.azurecr.io
+      quarkus.container-image.name=quarkus-sf-source
+      quarkus.container-image.tag=nonnative
+      quarkus.jib.ports=8080
+      #quarkus.container-image.push=true
+      #quarkus.jib.jvm-entrypoint=/opt/jboss/container/java/run/run-java.sh
+      #quarkus.jib.native-entrypoint=/opt/jboss/container/java/run/run-java.sh
+      #quarkus.jib.jvm-entrypoint=java,-cp,.,-jar,/home/jboss/quarkus-run.jar
+      #quarkus.jib.native-entrypoint=java,-cp,.,-jar,/home/jboss/quarkus-run.jar
+      #quarkus.jib.jvm-additional-arguments="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+      #quarkus.jib.jvm-additional-arguments="-XX:MaxRAMPercentage=80.0 -XX:+UseParallelGC -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -XX:+ExitOnOutOfMemoryError -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+  kind: ConfigMap
+  metadata:
+    name: quarkus-sf-source-application-properties
+- apiVersion: v1
+  data:
+    QUARKUS_PROFILE: dev
+  kind: ConfigMap
+  metadata:
+    name: quarkus-profile
+- apiVersion: v1
+  data:
+    QUARKUS_HTTP_PORT: '8080'
+  kind: ConfigMap
+  metadata:
+    name: quarkus-http-port
+- apiVersion: v1
+  data:
+    JAVA_APP_DIR: "/tmp/src/target"
+  kind: ConfigMap
+  metadata:
+    name: java-app-dir
+- apiVersion: v1
+  data:
+    prometheus-config.yml: |-
+      startDelaySecs: 5
+      ssl: false
+      blacklistObjectNames: ["java.lang:*"]
+  kind: ConfigMap
+  metadata:
+    name: prometheus-conf
+- apiVersion: v1
+  data:
+    JAVA_APP_JAR: "/deployments/quarkus-run.jar"
+  kind: ConfigMap
+  metadata:
+    name: quarkus-sf-raw-jar
+- apiVersion: v1
+  data:
+    application.properties: |-
+      %local.kafka.bootstrap.servers=localhost:9098
+      %dev.kafka.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %stg.kafka.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %prod.kafka.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      
+      %local.quarkus.http.port=8082
+      %dev.quarkus.http.port=8080
+      %stg.quarkus.http.port=8080
+      %prod.quarkus.http.port=8080
+      quarkus.log.level=INFO
+      
+      %local.stream.msg.in.mil=5000
+      %dev.stream.msg.in.mil=5000
+      %stg.stream.msg.in.mil=5000
+      %prod.stream.msg.in.mil=1
+      
+      %local.stream.sf.property.file.name=/Users/gelodiaz/intellij-workspace/strimzi/quarkus-sf-raw/src/main/resources/snowflake-local-mac.properties
+      %dev.stream.sf.property.file.name=/home/jboss/sf/config/snowflake.properties
+      %stg.stream.sf.property.file.name=/home/jboss/sf/config/snowflake.properties
+      %prod.stream.sf.property.file.name=/home/jboss/sf/config/snowflake.properties
+      
+      mp.messaging.incoming.kafka_source.connector=smallrye-kafka
+      mp.messaging.incoming.kafka_source.topic=quarkus-pubsub-raw
+      mp.messaging.incoming.kafka_source.value.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+      mp.messaging.incoming.kafka_source.key.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+      %local.mp.messaging.incoming.kafka_source.bootstrap.servers=localhost:9098
+      %dev.mp.messaging.incoming.kafka_source.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %stg.mp.messaging.incoming.kafka_source.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %prod.mp.messaging.incoming.kafka_source.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      mp.messaging.incoming.kafka_source.group.id=quarkus-sf-raw
+      mp.messaging.incoming.kafka_source.auto.offset.reset=latest
+      mp.messaging.incoming.kafka_source.enable.auto.commit=true
+      mp.messaging.incoming.kafka_source.request.timeout.ms=30000
+      mp.messaging.incoming.kafka_source.client.id=app-quarkus-sf-raw
+      mp.messaging.incoming.kafka_source.max.poll.records=10000
+      mp.messaging.incoming.kafka_source.max.partition.fetch.bytes=3500000
+      
+      
+      mp.messaging.outgoing.kafka_to_outgoing.connector=smallrye-kafka
+      mp.messaging.outgoing.kafka_to_outgoing.topic=quarkus-pubsub-norm
+      mp.messaging.outgoing.kafka_to_outgoing.value.serializer=org.apache.kafka.common.serialization.StringSerializer
+      mp.messaging.outgoing.kafka_to_outgoing.key.serializer=org.apache.kafka.common.serialization.StringSerializer
+      %local.mp.messaging.outgoing.kafka_to_outgoing.bootstrap.servers=localhost:9098
+      %dev.mp.messaging.outgoing.kafka_to_outgoing.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %stg.mp.messaging.outgoing.kafka_to_outgoing.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %prod.mp.messaging.outgoing.kafka_to_outgoing.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      
+      quarkus.container-image.build=true
+      #quarkus.native.reuse-existing=true
+      #quarkus.container-image.group=modernizedmicroserviceacr.azurecr.io
+      quarkus.container-image.name=quarkus-sf-raw
+      quarkus.container-image.tag=nonnative
+      quarkus.jib.ports=8080
+      #quarkus.container-image.push=true
+      #quarkus.jib.jvm-entrypoint=/opt/jboss/container/java/run/run-java.sh
+      #quarkus.jib.native-entrypoint=/opt/jboss/container/java/run/run-java.sh
+      #quarkus.jib.jvm-entrypoint=java,-cp,.,-jar,/home/jboss/quarkus-run.jar
+      #quarkus.jib.native-entrypoint=java,-cp,.,-jar,/home/jboss/quarkus-run.jar
+      #quarkus.jib.jvm-additional-arguments="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+      #quarkus.jib.jvm-additional-arguments="-XX:MaxRAMPercentage=80.0 -XX:+UseParallelGC -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -XX:+ExitOnOutOfMemoryError -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+      
+      does.produce=true
+  kind: ConfigMap
+  metadata:
+    name: quarkus-sf-raw-application-properties
+- apiVersion: v1
+  data:
+    snowflake.properties: |-
+      user=MODERNIZED_SNOWPIPE_STREAMING_CDC_SF_DB_DEV_SVC_USER_DEV
+      role=MODERNIZED_SNOWPIPE_STREAMING_CDC_SF_DB_DEV_DEPLOY_DEV
+      account=accenturepartnerorg-lab_aws_us_west
+      warehouse= = MODERNIZED_SNOWPIPE_STREAMING_CDC_SF_DB_DEV_WH_DEV
+      private_key_file=/home/jboss/sf/keys/rsa_key_dataintegration.p8
+      host = accenturepartnerorg-lab_aws_us_west.snowflakecomputing.com
+      database=MODERNIZED_SNOWPIPE_STREAMING_CDC_SF_DB_DEV
+      schema=MODERNIZED_SNOWPIPE_STREAMING_CDC_SF_SCHEMA
+      table=MODERNIZED_SNOWPIPE_STREAMING_CDC_SF_TABLE_QUARKUS_RAW
+      #channel_name=channel_1_quarkus
+      channel_name=channel_quarkus_raw
+      SHOW_KEYS=TRUE
+      
+      AES_KEY=O90hS0k9qHdsMDkPe46ZcQ==
+      TOKEN_KEY=11
+  kind: ConfigMap
+  metadata:
+    name: quarkus-sf-raw-snowflake-properties
+- apiVersion: v1
+  data:
+    QUARKUS_PROFILE: dev
+  kind: ConfigMap
+  metadata:
+    name: quarkus-profile
+- apiVersion: v1
+  data:
+    QUARKUS_HTTP_PORT: '8080'
+  kind: ConfigMap
+  metadata:
+    name: quarkus-http-port
+- apiVersion: v1
+  data:
+    JAVA_APP_DIR: "/tmp/src/target"
+  kind: ConfigMap
+  metadata:
+    name: java-app-dir
+- apiVersion: v1
+  data:
+    prometheus-config.yml: |-
+      startDelaySecs: 5
+      ssl: false
+      blacklistObjectNames: ["java.lang:*"]
+  kind: ConfigMap
+  metadata:
+    name: prometheus-conf
+- apiVersion: v1
+  data:
+    JAVA_APP_JAR: "/deployments/quarkus-run.jar"
+  kind: ConfigMap
+  metadata:
+    name: quarkus-sf-normalize-jar
+- apiVersion: v1
+  data:
+    application.properties: |-
+      %local.kafka.bootstrap.servers=localhost:9098
+      %dev.kafka.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %stg.kafka.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %prod.kafka.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      
+      %local.quarkus.http.port=8083
+      %dev.quarkus.http.port=8080
+      %stg.quarkus.http.port=8080
+      %prod.quarkus.http.port=8080
+      quarkus.log.level=INFO
+      
+      %local.stream.msg.in.mil=5000
+      %dev.stream.msg.in.mil=5000
+      %stg.stream.msg.in.mil=5000
+      %prod.stream.msg.in.mil=1
+      
+      %local.stream.sf.property.file.name=/Users/gelodiaz/intellij-workspace/strimzi/quarkus-sf-normalize/src/main/resources/snowflake-local-mac.properties
+      %dev.stream.sf.property.file.name=/home/jboss/sf/config/snowflake.properties
+      %stg.stream.sf.property.file.name=/home/jboss/sf/config/snowflake.properties
+      %prod.stream.sf.property.file.name=/home/jboss/sf/config/snowflake.properties
+      
+      mp.messaging.incoming.kafka_source.connector=smallrye-kafka
+      mp.messaging.incoming.kafka_source.topic=quarkus-pubsub-norm
+      mp.messaging.incoming.kafka_source.value.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+      mp.messaging.incoming.kafka_source.key.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+      %local.mp.messaging.incoming.kafka_source.bootstrap.servers=localhost:9098
+      %dev.mp.messaging.incoming.kafka_source.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %stg.mp.messaging.incoming.kafka_source.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %prod.mp.messaging.incoming.kafka_source.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      mp.messaging.incoming.kafka_source.group.id=quarkus-sf-normalize
+      mp.messaging.incoming.kafka_source.auto.offset.reset=latest
+      mp.messaging.incoming.kafka_source.enable.auto.commit=true
+      mp.messaging.incoming.kafka_source.request.timeout.ms=30000
+      mp.messaging.incoming.kafka_source.client.id=app-quarkus-sf-normalize
+      mp.messaging.incoming.kafka_source.max.poll.records=10000
+      mp.messaging.incoming.kafka_source.max.partition.fetch.bytes=3500000
+      
+      mp.messaging.outgoing.kafka_to_outgoing.connector=smallrye-kafka
+      mp.messaging.outgoing.kafka_to_outgoing.topic=quarkus-pubsub-tok
+      mp.messaging.outgoing.kafka_to_outgoing.value.serializer=org.apache.kafka.common.serialization.StringSerializer
+      mp.messaging.outgoing.kafka_to_outgoing.key.serializer=org.apache.kafka.common.serialization.StringSerializer
+      %local.mp.messaging.outgoing.kafka_to_outgoing.bootstrap.servers=localhost:9098
+      %dev.mp.messaging.outgoing.kafka_to_outgoing.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %stg.mp.messaging.outgoing.kafka_to_outgoing.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %prod.mp.messaging.outgoing.kafka_to_outgoing.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      
+      quarkus.container-image.build=true
+      #quarkus.native.reuse-existing=true
+      #quarkus.container-image.group=modernizedmicroserviceacr.azurecr.io
+      quarkus.container-image.name=quarkus-sf-normalize
+      quarkus.container-image.tag=nonnative
+      quarkus.jib.ports=8080
+      #quarkus.container-image.push=true
+      #quarkus.jib.jvm-entrypoint=/opt/jboss/container/java/run/run-java.sh
+      #quarkus.jib.native-entrypoint=/opt/jboss/container/java/run/run-java.sh
+      #quarkus.jib.jvm-entrypoint=java,-cp,.,-jar,/home/jboss/quarkus-run.jar
+      #quarkus.jib.native-entrypoint=java,-cp,.,-jar,/home/jboss/quarkus-run.jar
+      #quarkus.jib.jvm-additional-arguments="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+      #quarkus.jib.jvm-additional-arguments="-XX:MaxRAMPercentage=80.0 -XX:+UseParallelGC -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -XX:+ExitOnOutOfMemoryError -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+      
+      does.produce=true
+  kind: ConfigMap
+  metadata:
+    name: quarkus-sf-normalize-application-properties
+- apiVersion: v1
+  data:
+    snowflake.properties: |-
+      user=MODERNIZED_SNOWPIPE_STREAMING_CDC_SF_DB_DEV_SVC_USER_DEV
+      role=MODERNIZED_SNOWPIPE_STREAMING_CDC_SF_DB_DEV_DEPLOY_DEV
+      account=accenturepartnerorg-lab_aws_us_west
+      warehouse= = MODERNIZED_SNOWPIPE_STREAMING_CDC_SF_DB_DEV_WH_DEV
+      private_key_file=/home/jboss/sf/keys/rsa_key_dataintegration.p8
+      host = accenturepartnerorg-lab_aws_us_west.snowflakecomputing.com
+      database=MODERNIZED_SNOWPIPE_STREAMING_CDC_SF_DB_DEV
+      schema=MODERNIZED_SNOWPIPE_STREAMING_CDC_SF_SCHEMA
+      table=MODERNIZED_SNOWPIPE_STREAMING_CDC_SF_TABLE_QUARKUS_NORMALIZE
+      #channel_name=channel_1_quarkus
+      channel_name=channel_quarkus_normalize
+      SHOW_KEYS=TRUE
+      
+      AES_KEY=O90hS0k9qHdsMDkPe46ZcQ==
+      TOKEN_KEY=11
+  kind: ConfigMap
+  metadata:
+    name: quarkus-sf-normalize-snowflake-properties
+- apiVersion: v1
+  data:
+    QUARKUS_PROFILE: dev
+  kind: ConfigMap
+  metadata:
+    name: quarkus-profile
+- apiVersion: v1
+  data:
+    QUARKUS_HTTP_PORT: '8080'
+  kind: ConfigMap
+  metadata:
+    name: quarkus-http-port
+- apiVersion: v1
+  data:
+    JAVA_APP_DIR: "/tmp/src/target"
+  kind: ConfigMap
+  metadata:
+    name: java-app-dir
+- apiVersion: v1
+  data:
+    prometheus-config.yml: |-
+      startDelaySecs: 5
+      ssl: false
+      blacklistObjectNames: ["java.lang:*"]
+  kind: ConfigMap
+  metadata:
+    name: prometheus-conf
+- apiVersion: v1
+  data:
+    JAVA_APP_JAR: "/deployments/quarkus-run.jar"
+  kind: ConfigMap
+  metadata:
+    name: quarkus-sf-tokenize-jar
+- apiVersion: v1
+  data:
+    application.properties: |-
+      %local.kafka.bootstrap.servers=localhost:9098
+      %dev.kafka.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %stg.kafka.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %prod.kafka.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      
+      %local.quarkus.http.port=8084
+      %dev.quarkus.http.port=8080
+      %stg.quarkus.http.port=8080
+      %prod.quarkus.http.port=8080
+      quarkus.log.level=INFO
+      
+      %local.stream.msg.in.mil=5000
+      %dev.stream.msg.in.mil=5000
+      %stg.stream.msg.in.mil=5000
+      %prod.stream.msg.in.mil=1
+      
+      %local.stream.sf.property.file.name=/Users/gelodiaz/intellij-workspace/strimzi/quarkus-sf-tokenize/src/main/resources/snowflake-local-mac.properties
+      %dev.stream.sf.property.file.name=/home/jboss/sf/config/snowflake.properties
+      %stg.stream.sf.property.file.name=/home/jboss/sf/config/snowflake.properties
+      %prod.stream.sf.property.file.name=/home/jboss/sf/config/snowflake.properties
+      
+      mp.messaging.incoming.kafka_source.connector=smallrye-kafka
+      mp.messaging.incoming.kafka_source.topic=quarkus-pubsub-tok
+      mp.messaging.incoming.kafka_source.value.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+      mp.messaging.incoming.kafka_source.key.deserializer=org.apache.kafka.common.serialization.StringDeserializer
+      %local.mp.messaging.incoming.kafka_source.bootstrap.servers=localhost:9098
+      %dev.mp.messaging.incoming.kafka_source.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %stg.mp.messaging.incoming.kafka_source.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %prod.mp.messaging.incoming.kafka_source.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      mp.messaging.incoming.kafka_source.group.id=quarkus-sf-tokenize
+      mp.messaging.incoming.kafka_source.auto.offset.reset=latest
+      mp.messaging.incoming.kafka_source.enable.auto.commit=true
+      mp.messaging.incoming.kafka_source.request.timeout.ms=30000
+      mp.messaging.incoming.kafka_source.client.id=app-quarkus-sf-tokenize
+      mp.messaging.incoming.kafka_source.max.poll.records=10000
+      mp.messaging.incoming.kafka_source.max.partition.fetch.bytes=3500000
+      
+      mp.messaging.outgoing.kafka_to_outgoing.connector=smallrye-kafka
+      mp.messaging.outgoing.kafka_to_outgoing.topic=quarkus-pubsub-detok
+      mp.messaging.outgoing.kafka_to_outgoing.value.serializer=org.apache.kafka.common.serialization.StringSerializer
+      mp.messaging.outgoing.kafka_to_outgoing.key.serializer=org.apache.kafka.common.serialization.StringSerializer
+      %local.mp.messaging.outgoing.kafka_to_outgoing.bootstrap.servers=localhost:9098
+      %dev.mp.messaging.outgoing.kafka_to_outgoing.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %stg.mp.messaging.outgoing.kafka_to_outgoing.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      %prod.mp.messaging.outgoing.kafka_to_outgoing.bootstrap.servers=diaz-cluster-kafka-brokers.strimzi.svc.cluster.local:9098
+      
+      quarkus.container-image.build=true
+      #quarkus.native.reuse-existing=true
+      #quarkus.container-image.group=modernizedmicroserviceacr.azurecr.io
+      quarkus.container-image.name=quarkus-sf-tokenize
+      quarkus.container-image.tag=nonnative
+      quarkus.jib.ports=8080
+      #quarkus.container-image.push=true
+      #quarkus.jib.jvm-entrypoint=/opt/jboss/container/java/run/run-java.sh
+      #quarkus.jib.native-entrypoint=/opt/jboss/container/java/run/run-java.sh
+      #quarkus.jib.jvm-entrypoint=java,-cp,.,-jar,/home/jboss/quarkus-run.jar
+      #quarkus.jib.native-entrypoint=java,-cp,.,-jar,/home/jboss/quarkus-run.jar
+      #quarkus.jib.jvm-additional-arguments="-Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+      #quarkus.jib.jvm-additional-arguments="-XX:MaxRAMPercentage=80.0 -XX:+UseParallelGC -XX:MinHeapFreeRatio=10 -XX:MaxHeapFreeRatio=20 -XX:GCTimeRatio=4 -XX:AdaptiveSizePolicyWeight=90 -XX:+ExitOnOutOfMemoryError -Djava.util.logging.manager=org.jboss.logmanager.LogManager"
+      
+      does.produce=true
+  kind: ConfigMap
+  metadata:
+    name: quarkus-sf-tokenize-application-properties
+- apiVersion: v1
+  data:
+    snowflake.properties: |-
+      user=MODERNIZED_SNOWPIPE_STREAMING_CDC_SF_DB_DEV_SVC_USER_DEV
+      role=MODERNIZED_SNOWPIPE_STREAMING_CDC_SF_DB_DEV_DEPLOY_DEV
+      account=accenturepartnerorg-lab_aws_us_west
+      warehouse= = MODERNIZED_SNOWPIPE_STREAMING_CDC_SF_DB_DEV_WH_DEV
+      private_key_file=/home/jboss/sf/keys/rsa_key_dataintegration.p8
+      host = accenturepartnerorg-lab_aws_us_west.snowflakecomputing.com
+      database=MODERNIZED_SNOWPIPE_STREAMING_CDC_SF_DB_DEV
+      schema=MODERNIZED_SNOWPIPE_STREAMING_CDC_SF_SCHEMA
+      table=MODERNIZED_SNOWPIPE_STREAMING_CDC_SF_TABLE_QUARKUS_TOKENIZE
+      #channel_name=channel_1_quarkus
+      channel_name=channel_quarkus_tokenize
+      SHOW_KEYS=TRUE
+      
+      AES_KEY=O90hS0k9qHdsMDkPe46ZcQ==
+      TOKEN_KEY=11
+  kind: ConfigMap
+  metadata:
+    name: quarkus-sf-tokenize-snowflake-properties
+kind: List
+metadata:
+  resourceVersion: ''
+  selfLink: ''
