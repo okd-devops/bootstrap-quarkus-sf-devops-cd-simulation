@@ -5,7 +5,6 @@ items:
   metadata:
     name: quarkus-sf-source
   spec:
-    replicas: 0
     selector:
       matchLabels:
         app.kubernetes.io/name: quarkus-sf-source
@@ -62,7 +61,6 @@ items:
   metadata:
     name: quarkus-sf-raw
   spec:
-    replicas: 0
     selector:
       matchLabels:
         app.kubernetes.io/name: quarkus-sf-raw
@@ -132,7 +130,6 @@ items:
   metadata:
     name: quarkus-sf-normalize
   spec:
-    replicas: 0
     selector:
       matchLabels:
         app.kubernetes.io/name: quarkus-sf-normalize
@@ -202,7 +199,6 @@ items:
   metadata:
     name: quarkus-sf-tokenize
   spec:
-    replicas: 0
     selector:
       matchLabels:
         app.kubernetes.io/name: quarkus-sf-tokenize
